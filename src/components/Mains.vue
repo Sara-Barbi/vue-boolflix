@@ -82,20 +82,3 @@ a {
 }
 </style>
 
-<!--        
-axios
-          .get('https://api.themoviedb.org/3/search/tv', {
-          params: {
-            api_key: 'c118f218a2e8045c8dc9d93ebeb85c9b',
-            language: 'it-IT',
-            query: this.ricercaUtente,
-          }
-          })
-          .then( (response) => {
-            this.serieLista = response.data.results;
-            this.nuovoArr = this.filmLista.concat(this.serieLista);
-            console.log(this.serieLista)
-          
-    
-       });
--->
