@@ -1,16 +1,59 @@
 <template>
   <div class="hello">
 
-    <h1></h1>
+    <input 
+    type="text"
+    placeholder="search your film!"
+    v-model="inputCerca">
+
+    <button @click="cerca">Cerca</button>
+    <ul
+        v-for="(element,index) in filmLista"
+        :key="index">
+        <li>{{element.title}}</li>
+        <li>{{element.original_title}}</li>
+        <li>{{element.original_language}}</li>
+        <li>{{element.vote_average}}</li>
+        
+    </ul>
 
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Mains',
   props: {
+
     
+  },
+ data(){
+   return{
+     apiURL: "https://api.themoviedb.org/3/search/movie",
+     inputCerca:'',
+     filmLista:[]
+     
+   }
+ },
+  methods:{
+    cerca: function(){
+      axios
+      .get(this.apiURL, {
+      params: {
+        api_key: '5ca4950d17856f632c0bf4407810d397',
+        query: this.inputCerca,
+      }
+      })
+      .then((response)=> {
+        this.filmLista = response.data.results;
+        
+      })
+      .catch((error) =>{
+        console.log(error);
+      })
+    }
   }
 }
 </script>

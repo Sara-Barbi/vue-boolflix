@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Heladers from './components/Headers.vue'
+import Headers from './components/Headers.vue'
 import Mains from './components/Mains.vue'
 import Footers from './components/Footers.vue'
 
