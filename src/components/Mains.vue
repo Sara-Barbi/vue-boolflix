@@ -7,17 +7,18 @@
     v-model="inputCerca">
 
     <button @click="cerca">Cerca</button>
-    <ul
+    <ul 
         v-for="(element,index) in filmLista"
         :key="index">
-        <li>{{element.title}}</li>
-        <li>{{element.original_title}}</li>
-        <li>{{element.original_language}}</li>
-        <li>{{element.vote_average}}</li>
-        
+          <li>{{element.title}}</li>
+          <li>{{element.original_title}}</li>
+          <img :src="`../assets/img/flags/${element.original_language}.png `" alt="">
+          <li>{{element.vote_average}}</li>
     </ul>
+   
+ 
 
-  </div>
+</div>    
 </template>
 
 <script>
@@ -33,7 +34,8 @@ export default {
    return{
      apiURL: "https://api.themoviedb.org/3/search/movie",
      inputCerca:'',
-     filmLista:[]
+     filmLista:[],
+   
      
    }
  },
@@ -48,14 +50,18 @@ export default {
       })
       .then((response)=> {
         this.filmLista = response.data.results;
-        
+
+
       })
       .catch((error) =>{
         console.log(error);
       })
-    }
+    },
+  
   }
 }
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -75,3 +81,20 @@ a {
   color: #42b983;
 }
 </style>
+
+<!--        axios
+          .get('https://api.themoviedb.org/3/search/tv', {
+          params: {
+            api_key: 'c118f218a2e8045c8dc9d93ebeb85c9b',
+            language: 'it-IT',
+            query: this.ricercaUtente,
+          }
+          })
+          .then( (response) => {
+            this.serieLista = response.data.results;
+            this.nuovoArr = this.filmLista.concat(this.serieLista);
+            console.log(this.serieLista)
+          
+    
+       });
+-->
