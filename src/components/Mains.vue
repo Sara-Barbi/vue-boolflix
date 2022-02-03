@@ -12,7 +12,8 @@
         :key="index">
           <li>{{element.title}}</li>
           <li>{{element.original_title}}</li>
-          <img src="../assets/img/flags/16x16/it.png " alt="">
+          
+          <img :src="require(`../assets/img/${element.original_language}.png`)" alt="">
           <li>{{element.vote_average}}</li>
     </ul>
    
