@@ -12,7 +12,7 @@
         :key="index">
           <li>{{element.title}}</li>
           <li>{{element.original_title}}</li>
-          <img :src="`../assets/img/flags/${element.original_language}.png `" alt="">
+          <img src="../assets/img/flags/16x16/it.png " alt="">
           <li>{{element.vote_average}}</li>
     </ul>
    
@@ -82,7 +82,8 @@ a {
 }
 </style>
 
-<!--        axios
+<!--        
+axios
           .get('https://api.themoviedb.org/3/search/tv', {
           params: {
             api_key: 'c118f218a2e8045c8dc9d93ebeb85c9b',
