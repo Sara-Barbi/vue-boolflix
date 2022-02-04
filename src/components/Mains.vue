@@ -1,21 +1,13 @@
 <template>
   <div class="hello">
-
-    <input 
-    type="text"
-    placeholder="search your film!"
-    v-model="inputCerca">
-
-    <button @click="cerca">Cerca</button>
-    <ul 
-        v-for="(element,index) in filmLista"
-        :key="index">
-          <li>{{element.title}}</li>
-          <li>{{element.original_title}}</li>
+     
+    
+    <filmFiltrati 
+        v-for="(element,index) in passaMain"
+        :key="index"
+        :prodotto="element" 
+        />
           
-          <img :src="require(`../assets/img/${element.original_language}.png`)" alt="">
-          <li>{{element.vote_average}}</li>
-    </ul>
    
  
 
@@ -23,43 +15,32 @@
 </template>
 
 <script>
-import axios from 'axios';
+
+
+import filmFiltrati from './sub-components/filmFiltrati.vue';
 
 export default {
+  components: { 
+    filmFiltrati ,
+    
+    },
   name: 'Mains',
   props: {
-
+    passaMain: Array
     
   },
- data(){
-   return{
-     apiURL: "https://api.themoviedb.org/3/search/movie",
-     inputCerca:'',
-     filmLista:[],
-   
-     
-   }
- },
-  methods:{
-    cerca: function(){
-      axios
-      .get(this.apiURL, {
-      params: {
-        api_key: '5ca4950d17856f632c0bf4407810d397',
-        query: this.inputCerca,
-      }
-      })
-      .then((response)=> {
-        this.filmLista = response.data.results;
-
-
-      })
-      .catch((error) =>{
-        console.log(error);
-      })
-    },
+    
   
-  }
+    methods:{
+  },
+  computed:{
+      valoreInputCerca(){
+        return this.passaMain
+      }
+    }
+ 
+ 
+
 }
 
 

@@ -1,17 +1,37 @@
 <template>
   <div class="hello">
 
-    <h1></h1>
+    <cercaFilm 
+      @filtra="passaFiltro"/>
 
   </div>
 </template>
 
 <script>
+
+import cercaFilm from './sub-components/cercaFilm.vue'
+
 export default {
   name: 'Headers',
+  components:{
+    cercaFilm
+  },
+  data(){
+    return{
+      filtroInput:""
+    }
+  },
+  
   props: {
     
+  },
+  methods:{
+    passaFiltro(argument){
+      this.filtroInput= argument
+      this.$emit('filtraAncora', argument)
+    }
   }
+
 }
 </script>
 
