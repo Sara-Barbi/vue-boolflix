@@ -40,7 +40,7 @@ export default {
             titolo: elem.title,
             titolo_originale: elem.original_title,
             lingua: elem.original_language,
-            voto: this.getStelle(elem.vote_average),
+            voto: elem.vote_average,
             immagine :elem.poster_path,
           };
           arrayFilm.push(objApp);
@@ -54,7 +54,7 @@ export default {
             titolo: elem.name,
             titolo_originale: elem.original_name,
             lingua: elem.original_language,
-            voto: this.getStelle(elem.vote_average),
+            voto: elem.vote_average,
             immagine:elem.poster_path
           };
           arrayFilm.push(objApp);
@@ -63,15 +63,19 @@ export default {
       },
       arrayFilmsSerieAdattate() {
           return [...this.arrayFilmAdattata, ...this.arraySerieAdattata];
-      }
+      },
+  
    },
     methods:{
       aggiornaDataAPI(inputFiltroAncora){
         this.input = inputFiltroAncora;
         this.cercaFilm();
         this.cercaSerie();
+        
       },
 
+
+      
       cercaFilm: function(){
         axios
         .get('https://api.themoviedb.org/3/search/movie', {
