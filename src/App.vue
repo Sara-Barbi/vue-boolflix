@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     
-    <Headers @filtraAncora="passaFiltroAncora"/>
-    <Mains :passaMain="filmLista"/>
+    <Headers @filtraAncora="aggiornaDataAPI"/>
+    <Mains :passaMain="arrayFilmsSerieAdattate" titolo="lista tutto" />
+    <Mains :passaMain="arrayFilmAdattata" titolo="lista film"/>
+    <Mains :passaMain="arraySerieAdattata" titolo="lista serie"/>
     <Footers />
 
   </div>
@@ -25,17 +27,54 @@ export default {
   data(){
     return{
       input:"",
-      filmLista:[]
+      filmLista:[],
+      serieLista:[]
     }
   },
   
   computed:{
-    
+      arrayFilmAdattata(){
+        const arrayFilm = [];
+        this.filmLista.forEach((elem) => {
+          const objApp = {
+            titolo: elem.title,
+            titolo_originale: elem.original_title,
+            lingua: elem.original_language,
+            voto: this.getStelle(elem.vote_average),
+            immagine :elem.poster_path,
+          };
+          arrayFilm.push(objApp);
+        });
+        return arrayFilm;
+      },
+      arraySerieAdattata(){
+        const arrayFilm = [];
+        this.serieLista.forEach((elem) => {
+          const objApp = {
+            titolo: elem.name,
+            titolo_originale: elem.original_name,
+            lingua: elem.original_language,
+            voto: this.getStelle(elem.vote_average),
+            immagine:elem.poster_path
+          };
+          arrayFilm.push(objApp);
+        });
+        return arrayFilm;
+      },
+      arrayFilmsSerieAdattate() {
+          return [...this.arrayFilmAdattata, ...this.arraySerieAdattata];
+      }
    },
     methods:{
-      cerca: function(){
+      aggiornaDataAPI(inputFiltroAncora){
+        this.input = inputFiltroAncora;
+        this.cercaFilm();
+        this.cercaSerie();
+      },
+
+      cercaFilm: function(){
         axios
-        .get(this.apiURL, {
+        .get('https://api.themoviedb.org/3/search/movie', {
         params: {
           api_key: '5ca4950d17856f632c0bf4407810d397',
           query: this.input,
@@ -51,12 +90,33 @@ export default {
           console.log(error);
         })
       },
+      cercaSerie: function(){
+            axios
+                .get('https://api.themoviedb.org/3/search/tv?', 
+                {
+                    params: {
+                        api_key: '5ca4950d17856f632c0bf4407810d397',
+                        query: this.input
+                    }
+                })
+                .then( (response) => {
+                    this.serieLista = response.data.results
+                    
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
   
     
       passaFiltroAncora(inputFiltro){
       this.input= inputFiltro;
 
+      },
+      getStelle(num){
+         Math.round((num)/2).toFixed(0)
       }
+
     }
   
 }

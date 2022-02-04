@@ -16,18 +16,13 @@ export default {
   components:{
     cercaFilm
   },
-  data(){
-    return{
-      filtroInput:""
-    }
-  },
+  
   
   props: {
     
   },
   methods:{
     passaFiltro(argument){
-      this.filtroInput= argument
       this.$emit('filtraAncora', argument)
     }
   }

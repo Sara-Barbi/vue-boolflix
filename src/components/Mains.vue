@@ -33,11 +33,7 @@ export default {
   
     methods:{
   },
-  computed:{
-      valoreInputCerca(){
-        return this.passaMain
-      }
-    }
+  
  
  
 
