@@ -117,10 +117,7 @@ export default {
       this.input= inputFiltro;
 
       },
-      getStelle(num){
-         Math.round((num)/2).toFixed(0)
-      }
-
+     
     }
   
 }
