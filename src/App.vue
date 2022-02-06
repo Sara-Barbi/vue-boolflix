@@ -1,10 +1,36 @@
 <template>
   <div id="app">
     <Headers @filtraAncora="aggiornaDataAPI"/>
+    <div v-if="filmLista.length>0">
+      <Mains :passaMain="arrayFilmAdattata" titolo="lista film" />  
+      <Mains :passaMain="arraySerieAdattata" titolo="lista serie"/> 
+      <Mains :passaMain="arrayFilmsSerieAdattate" titolo="lista tutto" />
+    </div>
     
-    <Mains :passaMain="arrayFilmAdattata" titolo="lista film" />  
-    <Mains :passaMain="arraySerieAdattata" titolo="lista serie"/> 
-    <Mains :passaMain="arrayFilmsSerieAdattate" titolo="lista tutto" />
+    <div v-else class="main_Color">
+      <div  v-for="(elements,index) in initialList" :key="index">
+
+        <div class="card">
+    
+          <img :src="`https://image.tmdb.org/t/p/w342${elements.poster_path}`" alt="">
+      
+          <div class="onHover  ">
+            <div class="cardTextStyle">
+              <li class="textCard">{{elements.title}}</li>
+              <li class="secondTextCard">{{elements.original_title}}</li>     
+              <img :src="require(`./assets/img/${elements.original_language}.png`)" alt="">
+
+              <li v-if="getStelle(elements.vote_average)==0"><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></li>
+              <li v-else-if="getStelle(elements.vote_average)==1"><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></li>
+              <li v-else-if="getStelle(elements.vote_average)==2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></li>
+              <li v-else-if="getStelle(elements.vote_average)==3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></li>
+              <li v-else-if="getStelle(elements.vote_average)==4"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></li>
+              <li v-else><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></li>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <Footers />
 
   </div>
@@ -28,7 +54,8 @@ export default {
     return{
       input:"",
       filmLista:[],
-      serieLista:[]
+      serieLista:[],
+      initialList:[]
     }
   },
   
@@ -111,6 +138,23 @@ export default {
                     console.log(error);
                 });
         },
+      filmIniziali: function(){
+      axios
+          .get('https://api.themoviedb.org/3/search/movie', 
+          {
+              params: {
+                  api_key: '5ca4950d17856f632c0bf4407810d397',
+                  query: "amore"
+              }
+          })
+          .then( (response) => {
+              this.initialList = response.data.results
+              
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+  },
   
     
       passaFiltroAncora(inputFiltro){
@@ -124,12 +168,18 @@ export default {
 </script>
 
 <style lang="scss">
+  @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"); 
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
+}
+.main_Color{
+  background-color: rgb(49, 48, 48);
   
 }
 </style>

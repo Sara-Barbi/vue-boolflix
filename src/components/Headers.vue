@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 d-flex justify-content-around align-items-center">
-          <h2>BOOLFLIX</h2>
+          <h2 class="logo">BOOLFLIX</h2>
           <cercaFilm 
             @filtra="passaFiltro"/>
 
@@ -41,5 +41,10 @@ export default {
 .hello{
   max-height: 60px ;
   background-color: black ;
+}
+.logo{
+  color: rgb(164, 12, 12);
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 900;
 }
 </style>
