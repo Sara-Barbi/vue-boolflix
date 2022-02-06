@@ -2,9 +2,10 @@
   <div id="app">
     
     <Headers @filtraAncora="aggiornaDataAPI"/>
+    
+    <Mains :passaMain="arrayFilmAdattata" titolo="lista film" />  
+    <Mains :passaMain="arraySerieAdattata" titolo="lista serie"/> 
     <Mains :passaMain="arrayFilmsSerieAdattate" titolo="lista tutto" />
-    <Mains :passaMain="arrayFilmAdattata" titolo="lista film"/>
-    <Mains :passaMain="arraySerieAdattata" titolo="lista serie"/>
     <Footers />
 
   </div>

@@ -1,6 +1,8 @@
 <template>
-<div>
-    <img :src="`https://image.tmdb.org/t/p/w154${prodotto.immagine}`" alt="">
+<div @mouseover="active=true" @mouseleave="active=false">
+  <img :src="`https://image.tmdb.org/t/p/w342${prodotto.immagine}`" alt="">
+  <div class="onHover" v-if="active">
+
     <li>{{prodotto.titolo}}</li>
     <li>{{prodotto.titolo_originale}}</li>     
     <img :src="require(`../../assets/img/${prodotto.lingua}.png`)" alt="">
@@ -12,6 +14,7 @@
     <li v-else-if="getStelle(prodotto.voto)==4"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></li>
     <li v-else><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></li>
 
+  </div>
    
 </div>
   
@@ -29,6 +32,11 @@ export default {
         return Math.round((num)/2).toFixed(0)
     }
 
+  },
+  data(){
+    return{
+      active : false
+    }
   }
 }
 </script>

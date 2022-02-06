@@ -6,6 +6,7 @@
         v-for="(element,index) in passaMain"
         :key="index"
         :prodotto="element" 
+        
         />
           
    
@@ -29,6 +30,7 @@ export default {
     passaMain: Array
     
   },
+ 
     
   
     methods:{
