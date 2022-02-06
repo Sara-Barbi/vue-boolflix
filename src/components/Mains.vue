@@ -1,13 +1,14 @@
 <template>
   <div class="hello">
      
-    
+  <div class="d-flex flex-wrap justify-content-center">
     <filmFiltrati 
         v-for="(element,index) in passaMain"
         :key="index"
         :prodotto="element" 
         
         />
+  </div>
           
    
  

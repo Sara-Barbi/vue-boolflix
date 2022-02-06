@@ -1,9 +1,15 @@
 <template>
   <div class="hello">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-around align-items-center">
+          <h2>BOOLFLIX</h2>
+          <cercaFilm 
+            @filtra="passaFiltro"/>
 
-    <cercaFilm 
-      @filtra="passaFiltro"/>
-
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -32,18 +38,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.hello{
+  max-height: 60px ;
+  background-color: black ;
 }
 </style>
