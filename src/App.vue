@@ -1,39 +1,25 @@
 <template>
   <div id="app">
-    <Headers @filtraAncora="aggiornaDataAPI"/>
-    <div v-if="filmLista.length>0">
+    <Headers 
+    @filtraAncora="aggiornaDataAPI"
+    class="position-fixed top-0 w-100"/>
+    <div v-if="filmLista.length>0" class="marginTopMain">
       <Mains :passaMain="arrayFilmAdattata" titolo="lista film" />  
       <Mains :passaMain="arraySerieAdattata" titolo="lista serie"/> 
       <Mains :passaMain="arrayFilmsSerieAdattate" titolo="lista tutto" />
     </div>
     
-    <div v-else class="main_Color">
-      <div  v-for="(elements,index) in initialList" :key="index">
+    <div v-else class="main_Color d-flex flex-wrap">
+      {{filmIniziali()}}
 
-        <div class="card">
-    
-          <img :src="`https://image.tmdb.org/t/p/w342${elements.poster_path}`" alt="">
-      
-          <div class="onHover  ">
-            <div class="cardTextStyle">
-              <li class="textCard">{{elements.title}}</li>
-              <li class="secondTextCard">{{elements.original_title}}</li>     
-              <img :src="require(`./assets/img/${elements.original_language}.png`)" alt="">
-
-              <li v-if="getStelle(elements.vote_average)==0"><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></li>
-              <li v-else-if="getStelle(elements.vote_average)==1"><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></li>
-              <li v-else-if="getStelle(elements.vote_average)==2"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></li>
-              <li v-else-if="getStelle(elements.vote_average)==3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></li>
-              <li v-else-if="getStelle(elements.vote_average)==4"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></li>
-              <li v-else><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></li>
-            </div>
-          </div>
-        </div>
-      </div>
+    <initial-list v-for="(cards, index) in initialList"  
+                 :key="index"
+                 :carte = cards />
     </div>
-    <Footers />
-
-  </div>
+      
+</div>
+     
+    
 
 </template>
 
@@ -41,21 +27,24 @@
 import axios from 'axios'
 import Headers from './components/Headers.vue'
 import Mains from './components/Mains.vue'
-import Footers from './components/Footers.vue'
+import InitialList from './components/sub-components/InitialList.vue'
+
 
 export default {
   name: 'App',
   components: {
     Headers,
     Mains,
-    Footers
+    InitialList
+   
   },
   data(){
     return{
       input:"",
       filmLista:[],
       serieLista:[],
-      initialList:[]
+      initialList:[],
+      
     }
   },
   
@@ -69,6 +58,7 @@ export default {
             lingua: elem.original_language,
             voto: elem.vote_average,
             immagine :elem.poster_path,
+            info: elem.overview,
           };
           arrayFilm.push(objApp);
         });
@@ -82,7 +72,8 @@ export default {
             titolo_originale: elem.original_name,
             lingua: elem.original_language,
             voto: elem.vote_average,
-            immagine:elem.poster_path
+            immagine:elem.poster_path,
+            info: elem.overview,
           };
           arrayFilm.push(objApp);
         });
@@ -144,11 +135,13 @@ export default {
           {
               params: {
                   api_key: '5ca4950d17856f632c0bf4407810d397',
-                  query: "amore"
+                  query:'amore'
+                  
               }
           })
           .then( (response) => {
               this.initialList = response.data.results
+              
               
           })
           .catch(function (error) {
@@ -167,7 +160,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang='scss'>
   @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"); 
 
 #app {
@@ -178,8 +171,16 @@ export default {
   color: #2c3e50;
 
 }
+.marginTopMain{
+  margin-top: 46px;
+  
+}
 .main_Color{
   background-color: rgb(49, 48, 48);
+  
+  margin-bottom: 0;
+  color: white;
+  padding-top: 65px;
   
 }
 </style>

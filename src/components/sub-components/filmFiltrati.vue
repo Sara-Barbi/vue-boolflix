@@ -1,12 +1,14 @@
 <template>
-<div @mouseover="active=true" @mouseleave="active=false" class="card">
+<div @mouseover="active=true" @mouseleave="active=false" class="card m-3">
   
   <img :src="`https://image.tmdb.org/t/p/w342${prodotto.immagine}`" alt="">
   
   <div class="onHover  " v-if="active">
    <div class="cardTextStyle">
     <li class="textCard">{{prodotto.titolo}}</li>
-    <li class="secondTextCard">{{prodotto.titolo_originale}}</li>     
+    <li class="secondTextCard">{{prodotto.titolo_originale}}</li> 
+    <li class="info">{{prodotto.info}}</li>     
+
     <img :src="require(`../../assets/img/${prodotto.lingua}.png`)" alt="">
 
     <li v-if="getStelle(prodotto.voto)==0"><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></li>
@@ -75,6 +77,10 @@ export default {
   .secondTextCard{
     font-size:15px;
     color: grey ;
+  }
+  .info{
+    color: white;
+    font-size: 15px;
   }
 
   

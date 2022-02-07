@@ -41,6 +41,7 @@ export default {
 .hello{
   max-height: 60px ;
   background-color: black ;
+  z-index: 1;
 }
 .logo{
   color: rgb(164, 12, 12);
