@@ -13,8 +13,8 @@
       {{filmIniziali()}}
 
     <initial-list v-for="(cards, index) in initialList"  
-                 :key="index"
-                 :carte = cards />
+         :key="index"
+         :carte = cards />
     </div>
       
 </div>
@@ -135,7 +135,7 @@ export default {
           {
               params: {
                   api_key: '5ca4950d17856f632c0bf4407810d397',
-                  query:'amore'
+                  query:'avv'
                   
               }
           })
